@@ -1,0 +1,282 @@
+!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人自我介紹網站</title>
+  <style>
+    /* 基礎設定 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    }
+
+    body {
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* 1. 紫色導覽列 */
+    nav {
+      background-color: #6a1b9a; /* 紫色背景 */
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 15px 0;
+    }
+
+    nav li {
+      margin: 0 20px;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #e1bee7;
+    }
+
+    /* 區塊通用樣式 */
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* 2. 首頁區塊 */
+    #home h1 {
+      font-size: 2.8rem; /* 最大字體 */
+      font-weight: bold;  /* 粗體 */
+      margin-bottom: 15px;
+      color: #4a148c;
+    }
+
+    .bio {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 25px;
+    }
+
+    .avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #6a1b9a;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    /* 3. 作品區 */
+    #portfolio h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #6a1b9a;
+    }
+
+    .portfolio-grid {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .portfolio-item {
+      flex: 1;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .portfolio-info {
+      padding: 15px;
+    }
+
+    .portfolio-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .portfolio-info p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    /* 4. 表單區 */
+    #contact h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #6a1b9a;
+    }
+
+    .contact-form {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      height: 120px;
+    }
+
+    /* 響應式微調 (手機畫面自動變單欄) */
+    @media (max-width: 768px) {
+      .portfolio-grid {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 導覽列 (紫色) -->
+  <nav>
+    <ul>
+      <li><a href="#home">首頁</a></li>
+      <li><a href="#portfolio">作品區</a></li>
+      <li><a href="#contact">表單</a></li>
+    </ul>
+  </nav>
+
+  <!-- 首頁區塊 -->
+  <section id="home">
+    <h1>歡迎來到我們的自我介紹網站</h1>
+    <p class="bio">你好！這是一個充滿創意與熱情的個人展示空間，致力於透過程式與設計創造美好的體驗。</p>
+    <!-- 電腦隨機大頭貼 -->
+    <img id="avatar-img" class="avatar" alt="隨機生成的大頭貼">
+  </section>
+
+  <hr style="max-width: 80%; margin: 0 auto; border: 0; border-top: 1px solid #ddd;">
+
+  <!-- 作品區塊 -->
+  <section id="portfolio">
+    <h2>作品區</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <img id="work1-img" alt="作品一圖片">
+        <div class="portfolio-info">
+          <h3>作品 01：智慧網頁專案</h3>
+          <p>結合動態資料與現代前端技術進行設計與開發的視覺響應式網站。</p>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img id="work2-img" alt="作品二圖片">
+        <div class="portfolio-info">
+          <h3>作品 02：UI/UX 設計展示</h3>
+          <p>著重於使用者體驗優化，提供直覺且現代化的介面流程設計。</p>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img id="work3-img" alt="作品三圖片">
+        <div class="portfolio-info">
+          <h3>作品 03：數據自動化服務</h3>
+          <p>透過後端腳本與 API 整合，達成高效的自動化數據處理分析。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr style="max-width: 80%; margin: 0 auto; border: 0; border-top: 1px solid #ddd;">
+
+  <!-- 表單區塊 -->
+  <section id="contact">
+    <h2>聯絡我們</h2>
+    <form class="contact-form" onsubmit="event.preventDefault(); alert('表單已成功送出！');">
+      <div class="form-group">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" placeholder="請輸入姓名">
+      </div>
+      <div class="form-group">
+        <label for="email">eMail：</label>
+        <input type="email" id="email" placeholder="隨機生成中...">
+      </div>
+      <div class="form-group">
+        <label for="message">留言：</label>
+        <textarea id="message" placeholder="隨機生成中..."></textarea>
+      </div>
+    </form>
+  </section>
+
+  <!-- 電腦隨機生成 JavaScript -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const randomSeed = Math.floor(Math.random() * 1000);
+
+      // 1. 隨機生成大頭貼與作品照片 (使用 Picsum / Pravatar)
+      document.getElementById("avatar-img").src = `https://i.pravatar.cc/300?img=${(randomSeed % 70) + 1}`;
+      document.getElementById("work1-img").src = `https://picsum.photos/seed/${randomSeed + 1}/400/300`;
+      document.getElementById("work2-img").src = `https://picsum.photos/seed/${randomSeed + 2}/400/300`;
+      document.getElementById("work3-img").src = `https://picsum.photos/seed/${randomSeed + 3}/400/300`;
+
+      // 2. 隨機生成 Email
+      const domains = ["gmail.com", "yahoo.com", "outlook.com", "example.org"];
+      const names = ["alex", "taylor", "jordan", "morgan", "sam", "chris"];
+      const randomName = names[Math.floor(Math.random() * names.length)];
+      const randomDomain = domains[Math.floor(Math.random() * domains.length)];
+      const randomNum = Math.floor(Math.random() * 900) + 100;
+      
+      document.getElementById("email").value = `${randomName}${randomNum}@${randomDomain}`;
+
+      // 3. 隨機生成留言內容
+      const messages = [
+        "你好！看到你的作品區覺得很有吸引力，期待未來有合作的機會！",
+        "這是一個很棒的自我介紹頁面，整體配色與版面規劃都很乾淨舒服。",
+        "哈囉！我想詢問關於作品01的相關細節，不知道是否可以進一步討論？",
+        "非常喜歡這個網站的動態設計與風格，加油！期待看到更多新作品。"
+      ];
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      
+      document.getElementById("message").value = randomMessage;
+    });
+  </script>
+
+</body>
+</html>
