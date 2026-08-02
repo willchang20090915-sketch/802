@@ -16,7 +16,6 @@
             --text-color: #333333;
             --card-bg: #f9f9f9;
             --border-color: #cccccc;
-            --nav-bg: rgba(255, 255, 255, 0.9);
         }
 
         /* 深色模式變數 */
@@ -25,22 +24,16 @@
             --text-color: #f5f5f5;
             --card-bg: #2d2d2d;
             --border-color: #444444;
-            --nav-bg: rgba(30, 30, 30, 0.9);
         }
 
-        /* 毛玻璃效果套用於 body 標籤 (與 navbar 樣式一致) */
         body {
-            background-color: rgba(255, 255, 255, 0.55);
+            background-color: var(--bg-color);
             color: var(--text-color);
             font-family: sans-serif;
             margin: 0;
-            padding-top: 80px; /* 留出頂部導覽列的高度 */
+            padding-top: 80px;
             padding-bottom: 20px;
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            backdrop-filter: blur(16px) saturate(180%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         /* 頂部導覽列：現代毛玻璃質感 */
@@ -52,14 +45,10 @@
             height: 64px;
             box-sizing: border-box;
             padding: 0 30px;
-
-            /* 水平一字排開的核心配置 */
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-
-            /* 磨砂半透明玻璃質感 */
             background: rgba(255, 255, 255, 0.75);
             -webkit-backdrop-filter: blur(16px) saturate(180%);
             backdrop-filter: blur(16px) saturate(180%);
@@ -68,13 +57,11 @@
             z-index: 1000;
         }
 
-        /* 深色模式下的導覽列背景 */
         body.dark-mode .navbar {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(30, 30, 30, 0.75);
             border-bottom: 1px solid rgba(255, 255, 255, 0.12);
         }
 
-        /* 左邊品牌名稱 */
         .nav-brand {
             font-size: 1.1rem;
             font-weight: 700;
@@ -83,7 +70,6 @@
             white-space: nowrap;
         }
 
-        /* 中間三個選單：橫向排列 */
         .nav-links {
             display: flex;
             flex-direction: row;
@@ -108,7 +94,6 @@
             color: #007bff;
         }
 
-        /* 右邊切換按鈕：圓角精緻風 */
         .theme-btn {
             background: rgba(0, 122, 255, 0.1);
             color: #007bff;
@@ -131,6 +116,24 @@
             background: rgba(255, 255, 255, 0.15);
             color: #ffffff;
             border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* 💡 提示可編輯區塊的點擊樣式 */
+        [contenteditable="true"] {
+            outline: none;
+            border-radius: 4px;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            padding: 2px 6px;
+        }
+
+        [contenteditable="true"]:hover {
+            background-color: rgba(0, 123, 255, 0.08);
+            cursor: pointer;
+        }
+
+        [contenteditable="true"]:focus {
+            background-color: rgba(0, 123, 255, 0.15);
+            box-shadow: 0 0 0 2px #007bff;
         }
 
         .container {
@@ -263,13 +266,8 @@
                 flex: 1 1 calc(100% - 1rem);
             }
             h1 { font-size: 1.5rem; }
-            .nav-links { gap: 10px; }
-            .nav-brand { font-size: 0.95rem; }
-        }
-
-        @media (max-width: 480px) {
-            .container { padding: 0.5rem; }
-            .card { padding: 0.8rem; }
+            .nav-links { gap: 12px; }
+            .nav-brand { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -277,8 +275,8 @@
 
     <!-- 頂部導覽列 (Navbar) -->
     <nav class="navbar">
-        <!-- 左邊：自我介紹 / 品牌名稱 -->
-        <a href="#home" class="nav-brand">✏️ 陳小明的個人作品集</a>
+        <!-- 左邊：可直接點擊修改標題 -->
+        <a href="#home" class="nav-brand" contenteditable="true">✏️ 陳小明的個人作品集</a>
 
         <!-- 中間：三個欄位 -->
         <ul class="nav-links">
@@ -297,8 +295,8 @@
     <div class="container">
         <!-- 1. 首頁 / 標題區 (Header) -->
         <header id="home" class="fade-in">
-            <!-- ✏️ 修改名字 -->
-            <h1>陳小明</h1>
+            <!-- ✏️ 名字：滑鼠直接點即可修改文字 -->
+            <h1 contenteditable="true">陳小明</h1>
 
             <img src="https://via.placeholder.com/150" alt="大頭貼" id="avatar-img" class="avatar">
 
@@ -306,8 +304,8 @@
             <input type="file" id="avatar-upload" accept="image/*" style="display:none">
             <button type="button" class="upload-btn" onclick="document.getElementById('avatar-upload').click()">更換大頭貼</button>
 
-            <!-- ✏️ 修改自我介紹 -->
-            <p>你好！我是陳小明，一名專注於 Web 前端開發與 UI/UX 設計的工程師。</p>
+            <!-- ✏️ 自我介紹：滑鼠直接點即可修改文字 -->
+            <p contenteditable="true">你好！我是陳小明，一名專注於 Web 前端開發與 UI/UX 設計的工程師。（點擊此處可直接打字修改自我介紹）</p>
         </header>
 
         <!-- 2. 作品區 (Works) -->
@@ -321,8 +319,9 @@
                     <input type="file" id="work-upload-1" accept="image/*" style="display:none" onchange="previewWorkImg(this, 'work-img-1')">
                     <button type="button" class="upload-btn" onclick="document.getElementById('work-upload-1').click()">更換作品圖片</button>
 
-                    <h3>線上購物網站</h3>
-                    <p>使用 HTML/CSS/JS 打造的響應式電商購物平台，具備購物車與商品篩選功能。</p>
+                    <!-- ✏️ 作品 1 標題與描述：滑鼠直接點即可修改 -->
+                    <h3 contenteditable="true">線上購物網站</h3>
+                    <p contenteditable="true">使用 HTML/CSS/JS 打造的響應式電商購物平台，具備購物車與商品篩選功能。（點擊可修改）</p>
                 </article>
 
                 <!-- 作品卡片 2 -->
@@ -331,8 +330,9 @@
                     <input type="file" id="work-upload-2" accept="image/*" style="display:none" onchange="previewWorkImg(this, 'work-img-2')">
                     <button type="button" class="upload-btn" onclick="document.getElementById('work-upload-2').click()">更換作品圖片</button>
 
-                    <h3>天氣預報 App</h3>
-                    <p>串接 OpenWeather API 實時顯示各地天氣數據，並搭配卡片式視覺設計。</p>
+                    <!-- ✏️ 作品 2 標題與描述：滑鼠直接點即可修改 -->
+                    <h3 contenteditable="true">天氣預報 App</h3>
+                    <p contenteditable="true">串接 OpenWeather API 實時顯示各地天氣數據，並搭配卡片式視覺設計。（點擊可修改）</p>
                 </article>
 
                 <!-- 作品卡片 3 -->
@@ -341,8 +341,9 @@
                     <input type="file" id="work-upload-3" accept="image/*" style="display:none" onchange="previewWorkImg(this, 'work-img-3')">
                     <button type="button" class="upload-btn" onclick="document.getElementById('work-upload-3').click()">更換作品圖片</button>
 
-                    <h3>待辦事項管理清單</h3>
-                    <p>具備 LocalStorage 記憶功能，支援新增、刪除、標記完成的個人待辦清單工具。</p>
+                    <!-- ✏️ 作品 3 標題與描述：滑鼠直接點即可修改 -->
+                    <h3 contenteditable="true">待辦事項管理清單</h3>
+                    <p contenteditable="true">具備 LocalStorage 記憶功能，支援新增、刪除、標記完成的個人待辦清單工具。（點擊可修改）</p>
                 </article>
 
             </div>
@@ -373,7 +374,7 @@
 
         <!-- 頁尾 -->
         <footer class="fade-in" style="text-align: center; margin-top: 2rem;">
-            <p>&copy; 2026 陳小明. All rights reserved.</p>
+            <p contenteditable="true">&copy; 2026 陳小明. All rights reserved.</p>
         </footer>
     </div>
 
