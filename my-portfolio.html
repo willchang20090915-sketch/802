@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人作品集</title>
+    <style>
+        /* 平滑滾動 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 定義 CSS 變數 */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --card-bg: #f9f9f9;
+            --border-color: #cccccc;
+        }
+
+        /* 深色模式變數 */
+        body.dark-mode {
+            --bg-color: #1e1e1e;
+            --text-color: #f5f5f5;
+            --card-bg: #2d2d2d;
+            --border-color: #444444;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .avatar {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 10px auto;
+        }
+
+        .upload-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        /* 作品區 Flex 排版 */
+        #works .works-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            flex: 1 1 calc(33.333% - 1rem);
+            box-sizing: border-box;
+        }
+
+        /* 子任務 4-4：進場動畫樣式 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 表單樣式 */
+        #contact-form div {
+            margin-bottom: 1rem;
+        }
+
+        #contact-form input,
+        #contact-form textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* 錯誤訊息樣式 (子任務 4-1) */
+        .error-msg {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        /* Toast 成功提示樣式 (子任務 4-2) */
+        #toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+        }
+
+        /* RWD 響應式斷點 */
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .card {
+                margin: 0.5rem 0;
+                flex: 1 1 calc(100% - 1rem);
+            }
+            h1 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0.5rem; }
+            .card { padding: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 主題切換按鈕 -->
+    <button id="theme-toggle" style="position: fixed; top: 20px; right: 20px; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; z-index: 999;">Toggle Theme</button>
+
+    <!-- Toast 成功訊息區塊 -->
+    <div id="toast">表單送出成功！</div>
+
+    <div class="container">
+        <!-- 標題區 (Header) -->
+        <header class="fade-in">
+            <h1>你的名字</h1>
+            <img src="https://via.placeholder.com/150" alt="大頭貼" id="avatar-img" class="avatar">
+
+            <!-- 子任務 4-3：大頭貼本地上傳 -->
+            <input type="file" id="avatar-upload" accept="image/*" style="display:none">
+            <button type="button" class="upload-btn" onclick="document.getElementById('avatar-upload').click()">更換照片</button>
+
+            <p>這是一句簡短的自我介紹，熱愛前端開發與設計。</p>
+        </header>
+
+        <!-- 作品區 (Works) -->
+        <section id="works" class="fade-in">
+            <h2>作品集</h2>
+            <div class="works-container">
+                <article class="card fade-in">
+                    <h3>作品標題 1</h3>
+                    <p>這是第一個作品的簡短描述，介紹專案的核心功能與技術。</p>
+                </article>
+
+                <article class="card">
+                    <h3>作品標題 2</h3>
+                    <p>這是第二個作品的簡短描述，介紹專案的核心功能與技術。</p>
+                </article>
+
+                <article class="card">
+                    <h3>作品標題 3</h3>
+                    <p>這是第三個作品的簡短描述，介紹專案的核心功能與技術。</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- 聯絡表單 (Contact) -->
+        <section id="contact" class="fade-in">
+            <h2>聯絡我們</h2>
+            <form id="contact-form" novalidate>
+                <div>
+                    <label for="name">姓名：</label>
+                    <input type="text" id="name" name="name" placeholder="請輸入姓名">
+                </div>
+
+                <div>
+                    <label for="email">Email：</label>
+                    <input type="email" id="email" name="email" placeholder="example@mail.com">
+                </div>
+
+                <div>
+                    <label for="message">留言：</label>
+                    <textarea id="message" name="message" rows="4" placeholder="請輸入留言"></textarea>
+                </div>
+
+                <button type="submit" id="submit-btn">送出</button>
+            </form>
+        </section>
+
+        <!-- 頁尾 -->
+        <footer class="fade-in">
+            <p>&copy; 2026 你的名字. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript 邏輯整合 -->
+    <script>
+        // 1. 深色模式切換與記憶
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+
+        // 2. 子任務 4-3：大頭貼本地上傳預覽
+        const avatarUpload = document.getElementById('avatar-upload');
+        const avatarImg = document.getElementById('avatar-img');
+
+        avatarUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    avatarImg.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 3. 子任務 4-1：即時表單驗證
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const contactForm = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const toast = document.getElementById('toast');
+
+        function showError(input, message) {
+            let parent = input.parentElement;
+            let error = parent.querySelector('.error-msg');
+            if (!error) {
+                error = document.createElement('span');
+                error.className = 'error-msg';
+                parent.appendChild(error);
+            }
+            error.textContent = message;
+        }
+
+        function clearError(input) {
+            let parent = input.parentElement;
+            let error = parent.querySelector('.error-msg');
+            if (error) {
+                error.remove();
+            }
+        }
+
+        function validateName() {
+            const val = nameInput.value.trim();
+            if (val === '') {
+                showError(nameInput, '姓名不可為空白');
+                return false;
+            } else if (val.length < 2 || val.length > 30) {
+                showError(nameInput, '姓名長度需在 2 到 30 字之間');
+                return false;
+            }
+            clearError(nameInput);
+            return true;
+        }
+
+        function validateEmail() {
+            const val = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (val === '') {
+                showError(emailInput, 'Email 不可為空白');
+                return false;
+            } else if (!emailRegex.test(val)) {
+                showError(emailInput, '請輸入有效的 Email 格式');
+                return false;
+            }
+            clearError(emailInput);
+            return true;
+        }
+
+        function validateMessage() {
+            const val = messageInput.value.trim();
+            if (val === '') {
+                showError(messageInput, '留言不可為空白');
+                return false;
+            } else if (val.length > 500) {
+                showError(messageInput, '留言不可超過 500 字');
+                return false;
+            }
+            clearError(messageInput);
+            return true;
+        }
+
+        nameInput.addEventListener('input', validateName);
+        emailInput.addEventListener('input', validateEmail);
+        messageInput.addEventListener('input', validateMessage);
+
+        // 4. 子任務 4-2：送出按鈕防煞與 API 模擬
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const isNameValid = validateName();
+            const isEmailValid = validateEmail();
+            const isMessageValid = validateMessage();
+
+            if (!isNameValid || !isEmailValid || !isMessageValid) {
+                // 聚焦第一個錯誤欄位
+                if (!isNameValid) nameInput.focus();
+                else if (!isEmailValid) emailInput.focus();
+                else if (!isMessageValid) messageInput.focus();
+                return;
+            }
+
+            // 按鈕防煞機制
+            submitBtn.disabled = true;
+            submitBtn.textContent = '送出中...';
+
+            setTimeout(function() {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '送出';
+                contactForm.reset();
+
+                // 顯示 Toast 提示 2 秒
+                toast.style.display = 'block';
+                setTimeout(function() {
+                    toast.style.display = 'none';
+                }, 2000);
+            }, 1500);
+        });
+
+        // 5. 子任務 4-4：IntersectionObserver 淡入進場動畫
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
