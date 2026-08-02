@@ -16,6 +16,7 @@
             --text-color: #333333;
             --card-bg: #f9f9f9;
             --border-color: #cccccc;
+            --nav-bg: rgba(255, 255, 255, 0.9);
         }
 
         /* 深色模式變數 */
@@ -24,6 +25,7 @@
             --text-color: #f5f5f5;
             --card-bg: #2d2d2d;
             --border-color: #444444;
+            --nav-bg: rgba(30, 30, 30, 0.9);
         }
 
         body {
@@ -31,8 +33,70 @@
             color: var(--text-color);
             font-family: sans-serif;
             margin: 0;
-            padding: 20px;
+            padding-top: 80px; /* 留出頂部導覽列的高度 */
+            padding-bottom: 20px;
             transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* 頂部導覽列樣式 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        /* 導覽列左側：品牌/自我介紹 */
+        .nav-brand {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        /* 導覽列中間：三個欄位 */
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        /* 導覽列右側：切換按鈕 */
+        .theme-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .theme-btn:hover {
+            background-color: #0056b3;
         }
 
         .container {
@@ -43,7 +107,8 @@
 
         header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            padding-top: 20px;
         }
 
         .avatar {
@@ -66,6 +131,14 @@
             margin-bottom: 15px;
         }
 
+        .upload-btn:hover {
+            background-color: #0056b3;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
         /* 作品區 Flex 排版 */
         #works .works-container {
             display: flex;
@@ -81,9 +154,23 @@
             padding: 1rem;
             flex: 1 1 calc(33.333% - 1rem);
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
-        /* 子任務 4-4：進場動畫樣式 */
+        /* 作品圖片樣式 */
+        .card-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            background-color: #e0e0e0;
+        }
+
+        /* 進場動畫樣式 */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -111,7 +198,7 @@
             color: var(--text-color);
         }
 
-        /* 錯誤訊息樣式 (子任務 4-1) */
+        /* 錯誤訊息樣式 */
         .error-msg {
             color: #dc3545;
             font-size: 0.85rem;
@@ -119,10 +206,10 @@
             display: block;
         }
 
-        /* Toast 成功提示樣式 (子任務 4-2) */
+        /* Toast 成功提示樣式 */
         #toast {
             position: fixed;
-            top: 20px;
+            top: 80px;
             left: 50%;
             transform: translateX(-50%);
             background-color: #28a745;
@@ -131,7 +218,7 @@
             border-radius: 5px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             display: none;
-            z-index: 1000;
+            z-index: 1001;
         }
 
         /* RWD 響應式斷點 */
@@ -142,6 +229,8 @@
                 flex: 1 1 calc(100% - 1rem);
             }
             h1 { font-size: 1.5rem; }
+            .nav-links { gap: 10px; }
+            .nav-brand { font-size: 0.95rem; }
         }
 
         @media (max-width: 480px) {
@@ -152,47 +241,80 @@
 </head>
 <body>
 
-    <!-- 主題切換按鈕 -->
-    <button id="theme-toggle" style="position: fixed; top: 20px; right: 20px; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; z-index: 999;">Toggle Theme</button>
+    <!-- 頂部導覽列 (Navbar) -->
+    <nav class="navbar">
+        <!-- 左邊：自我介紹 / 品牌名稱 -->
+        <a href="#home" class="nav-brand">✏️ 陳小明的個人作品集</a>
+
+        <!-- 中間：三個欄位 -->
+        <ul class="nav-links">
+            <li><a href="#home">首頁</a></li>
+            <li><a href="#works">作品</a></li>
+            <li><a href="#contact">聯絡</a></li>
+        </ul>
+
+        <!-- 右邊：切換黑白介面按鈕 -->
+        <button id="theme-toggle" class="theme-btn">Toggle Theme</button>
+    </nav>
 
     <!-- Toast 成功訊息區塊 -->
     <div id="toast">表單送出成功！</div>
 
     <div class="container">
-        <!-- 標題區 (Header) -->
-        <header class="fade-in">
-            <h1>你的名字</h1>
+        <!-- 1. 首頁 / 標題區 (Header) -->
+        <header id="home" class="fade-in">
+            <!-- ✏️ 修改名字 -->
+            <h1>陳小明</h1>
+
             <img src="https://via.placeholder.com/150" alt="大頭貼" id="avatar-img" class="avatar">
 
-            <!-- 子任務 4-3：大頭貼本地上傳 -->
+            <!-- 大頭貼上傳 -->
             <input type="file" id="avatar-upload" accept="image/*" style="display:none">
-            <button type="button" class="upload-btn" onclick="document.getElementById('avatar-upload').click()">更換照片</button>
+            <button type="button" class="upload-btn" onclick="document.getElementById('avatar-upload').click()">更換大頭貼</button>
 
-            <p>這是一句簡短的自我介紹，熱愛前端開發與設計。</p>
+            <!-- ✏️ 修改自我介紹 -->
+            <p>你好！我是陳小明，一名專注於 Web 前端開發與 UI/UX 設計的工程師。</p>
         </header>
 
-        <!-- 作品區 (Works) -->
+        <!-- 2. 作品區 (Works) -->
         <section id="works" class="fade-in">
             <h2>作品集</h2>
             <div class="works-container">
+
+                <!-- 作品卡片 1 -->
                 <article class="card fade-in">
-                    <h3>作品標題 1</h3>
-                    <p>這是第一個作品的簡短描述，介紹專案的核心功能與技術。</p>
+                    <img src="https://via.placeholder.com/300x160" alt="作品1" id="work-img-1" class="card-img">
+                    <input type="file" id="work-upload-1" accept="image/*" style="display:none" onchange="previewWorkImg(this, 'work-img-1')">
+                    <button type="button" class="upload-btn" onclick="document.getElementById('work-upload-1').click()">更換作品圖片</button>
+
+                    <h3>線上購物網站</h3>
+                    <p>使用 HTML/CSS/JS 打造的響應式電商購物平台，具備購物車與商品篩選功能。</p>
                 </article>
 
-                <article class="card">
-                    <h3>作品標題 2</h3>
-                    <p>這是第二個作品的簡短描述，介紹專案的核心功能與技術。</p>
+                <!-- 作品卡片 2 -->
+                <article class="card fade-in">
+                    <img src="https://via.placeholder.com/300x160" alt="作品2" id="work-img-2" class="card-img">
+                    <input type="file" id="work-upload-2" accept="image/*" style="display:none" onchange="previewWorkImg(this, 'work-img-2')">
+                    <button type="button" class="upload-btn" onclick="document.getElementById('work-upload-2').click()">更換作品圖片</button>
+
+                    <h3>天氣預報 App</h3>
+                    <p>串接 OpenWeather API 實時顯示各地天氣數據，並搭配卡片式視覺設計。</p>
                 </article>
 
-                <article class="card">
-                    <h3>作品標題 3</h3>
-                    <p>這是第三個作品的簡短描述，介紹專案的核心功能與技術。</p>
+                <!-- 作品卡片 3 -->
+                <article class="card fade-in">
+                    <img src="https://via.placeholder.com/300x160" alt="作品3" id="work-img-3" class="card-img">
+                    <input type="file" id="work-upload-3" accept="image/*" style="display:none" onchange="previewWorkImg(this, 'work-img-3')">
+                    <button type="button" class="upload-btn" onclick="document.getElementById('work-upload-3').click()">更換作品圖片</button>
+
+                    <h3>待辦事項管理清單</h3>
+                    <p>具備 LocalStorage 記憶功能，支援新增、刪除、標記完成的個人待辦清單工具。</p>
                 </article>
+
             </div>
         </section>
 
-        <!-- 聯絡表單 (Contact) -->
+        <!-- 3. 聯絡表單 (Contact) -->
         <section id="contact" class="fade-in">
             <h2>聯絡我們</h2>
             <form id="contact-form" novalidate>
@@ -211,19 +333,19 @@
                     <textarea id="message" name="message" rows="4" placeholder="請輸入留言"></textarea>
                 </div>
 
-                <button type="submit" id="submit-btn">送出</button>
+                <button type="submit" id="submit-btn" class="upload-btn" style="width: 100%;">送出</button>
             </form>
         </section>
 
         <!-- 頁尾 -->
-        <footer class="fade-in">
-            <p>&copy; 2026 你的名字. All rights reserved.</p>
+        <footer class="fade-in" style="text-align: center; margin-top: 2rem;">
+            <p>&copy; 2026 陳小明. All rights reserved.</p>
         </footer>
     </div>
 
     <!-- JavaScript 邏輯整合 -->
     <script>
-        // 1. 深色模式切換與記憶
+        // 1. 深色/淺色模式切換與記憶
         const themeToggleBtn = document.getElementById('theme-toggle');
         themeToggleBtn.addEventListener('click', function() {
             document.body.classList.toggle('dark-mode');
@@ -238,7 +360,7 @@
             }
         });
 
-        // 2. 子任務 4-3：大頭貼本地上傳預覽
+        // 2. 大頭貼預覽
         const avatarUpload = document.getElementById('avatar-upload');
         const avatarImg = document.getElementById('avatar-img');
 
@@ -253,7 +375,19 @@
             }
         });
 
-        // 3. 子任務 4-1：即時表單驗證
+        // 3. 作品圖片預覽
+        function previewWorkImg(input, targetImgId) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById(targetImgId).src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 4. 即時表單驗證
         const nameInput = document.getElementById('name');
         const emailInput = document.getElementById('email');
         const messageInput = document.getElementById('message');
@@ -324,7 +458,7 @@
         emailInput.addEventListener('input', validateEmail);
         messageInput.addEventListener('input', validateMessage);
 
-        // 4. 子任務 4-2：送出按鈕防煞與 API 模擬
+        // 5. 送出按鈕防煞與 API 模擬
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -333,14 +467,12 @@
             const isMessageValid = validateMessage();
 
             if (!isNameValid || !isEmailValid || !isMessageValid) {
-                // 聚焦第一個錯誤欄位
                 if (!isNameValid) nameInput.focus();
                 else if (!isEmailValid) emailInput.focus();
                 else if (!isMessageValid) messageInput.focus();
                 return;
             }
 
-            // 按鈕防煞機制
             submitBtn.disabled = true;
             submitBtn.textContent = '送出中...';
 
@@ -349,7 +481,6 @@
                 submitBtn.textContent = '送出';
                 contactForm.reset();
 
-                // 顯示 Toast 提示 2 秒
                 toast.style.display = 'block';
                 setTimeout(function() {
                     toast.style.display = 'none';
@@ -357,7 +488,7 @@
             }, 1500);
         });
 
-        // 5. 子任務 4-4：IntersectionObserver 淡入進場動畫
+        // 6. IntersectionObserver 淡入進場動畫
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
